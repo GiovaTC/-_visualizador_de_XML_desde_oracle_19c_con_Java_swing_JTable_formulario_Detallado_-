@@ -5,6 +5,8 @@
 
 <img width="2551" height="1079" alt="image" src="https://github.com/user-attachments/assets/d252b7a1-8a8b-432a-8c92-fc36a5b7182e" />    
 
+<img width="2539" height="1079" alt="image" src="https://github.com/user-attachments/assets/2c432fc2-5c5c-496a-a549-9c229be21012" />    
+
 ```
 
 Solución completa, coherente y lista para ejecutar en IntelliJ con Java + Swing + Oracle 19c + XMLType.
