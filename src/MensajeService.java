@@ -7,4 +7,4 @@ public class MensajeService {
     public List<MensajeXML> obtenerMensajes() {
         return dao.listar();
     }
-}   
+}
