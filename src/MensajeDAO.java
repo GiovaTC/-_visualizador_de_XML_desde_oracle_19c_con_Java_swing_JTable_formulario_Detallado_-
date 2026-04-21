@@ -7,22 +7,36 @@ public class MensajeDAO {
 
         List<MensajeXML> lista = new ArrayList<>();
 
-        try (Connection cn = ConexionDB.getConexion()) {
+        String sql = """
+            SELECT 
+                ID, 
+                NOMBRE, 
+                XMLSERIALIZE(CONTENT MENSAJE AS CLOB) AS XML_DATA 
+            FROM MENSAJES_XML
+        """;
 
-            String sql = "SELECT ID, NOMBRE, MENSAJE.getClobVal() AS XML_DATA FROM MENSAJES_XML";
-
-            PreparedStatement ps = cn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection cn = ConexionDB.getConexion();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+
                 MensajeXML m = new MensajeXML();
                 m.setId(rs.getInt("ID"));
                 m.setNombre(rs.getString("NOMBRE"));
-                m.setXml(rs.getString("XML_DATA"));
+
+                // Manejo seguro del CLOB como String
+                String xml = rs.getString("XML_DATA");
+                m.setXml(xml != null ? xml : "");
 
                 lista.add(m);
             }
+
+        } catch (SQLException e) {
+            System.err.println("Error SQL al listar mensajes XML:");
+            e.printStackTrace();
         } catch (Exception e) {
+            System.err.println("Error general:");
             e.printStackTrace();
         }
 
